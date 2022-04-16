@@ -1,0 +1,33 @@
+﻿<Window x:Class="GameShop.DisplayTaxes"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GameShop"
+        mc:Ignorable="d"
+        Title="DisplayTaxes" Height="300" Width="450" DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"></RowDefinition>
+            <RowDefinition Height="9*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="8*"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
+            <Label VerticalAlignment="Top" FontWeight="Bold">Input tax >></Label>
+            <TextBox Margin="6px" Height="25px" Width="100" VerticalAlignment="Top" x:Name="taxText" Text="{Binding Text, Mode=TwoWay}"></TextBox>
+            <Label FontWeight="Bold">%</Label>
+            <Button HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10px" Click="AddTax">Display tax</Button>
+        </StackPanel>
+        <ListView Grid.Row="1" Grid.ColumnSpan="3" Margin="10px" Name="TaxList">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding .}" FontWeight="Bold"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</Window>
