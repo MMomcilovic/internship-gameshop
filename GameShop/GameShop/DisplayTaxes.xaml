@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:GameShop"
+        xmlns:local="clr-namespace:GameShop" xmlns:val="clr-namespace:GameShop.validation"
         mc:Ignorable="d"
         Title="DisplayTaxes" Height="300" Width="450" DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Grid>
@@ -18,7 +18,16 @@
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
             <Label VerticalAlignment="Top" FontWeight="Bold">Input tax >></Label>
-            <TextBox Margin="6px" Height="25px" Width="100" VerticalAlignment="Top" x:Name="taxText" Text="{Binding Text, Mode=TwoWay}"></TextBox>
+            <TextBox Margin="6px" Height="25px" Width="100" VerticalAlignment="Top" x:Name="taxText">
+                <TextBox.Text>
+                    <Binding Path="Text" Mode="TwoWay">
+                        <Binding.ValidationRules>
+                            <val:StringToDoubleValidationRule ValidationStep="RawProposedValue"/>
+                            <val:MinMaxValidationRule ValidationStep="ConvertedProposedValue" Min="0" Max="100"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
             <Label FontWeight="Bold">%</Label>
             <Button HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10px" Click="AddTax">Display tax</Button>
         </StackPanel>

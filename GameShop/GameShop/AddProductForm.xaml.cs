@@ -24,9 +24,11 @@ namespace GameShop
         public Data data { get; set; }
         public delegate void DataChangedEventHandler(object sender, EventArgs e);
         public event DataChangedEventHandler DataChangedEvent;
+        public Product pr;
         public AddProductForm(Data d)
         {
             data = d;
+            pr = new Product();
             InitializeComponent();
         }
 
