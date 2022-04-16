@@ -22,6 +22,7 @@
             <Label FontWeight="Bold">%</Label>
             <Button HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10px" Click="AddTax">Display tax</Button>
         </StackPanel>
+        <TextBlock Grid.Row="0" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" Text="{Binding product.name}"></TextBlock>
         <ListView Grid.Row="1" Grid.ColumnSpan="3" Margin="10px" Name="TaxList">
             <ListView.ItemTemplate>
                 <DataTemplate>

@@ -26,7 +26,7 @@ namespace GameShop
         public MainWindow()
         {
             data = new Data();
-            data.products.Add(new Product() { name="igracka", price=10, UPC=123});
+            data.products.Add(new Product() { name= "LEGO blokovi = “Friends Forest House”", price=20.25, UPC=41679});
             InitializeComponent();
             this.DataContext = this;
         }

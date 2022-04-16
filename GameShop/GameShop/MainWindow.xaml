@@ -39,9 +39,9 @@
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Grid.Column="0" Text="UPC: " FontWeight="Bold"/>
                                 <TextBlock Grid.Column="0" Text="{Binding UPC}" FontWeight="Bold"/>
-                                <TextBlock Text=",         Name: "/>
+                                <TextBlock Text="         Naziv prozivoda: "/>
                                 <TextBlock Grid.Column="1" Text="{Binding name}" FontWeight="Bold"/>
-                                <TextBlock Text=",         Price: "/>
+                                <TextBlock Text="         Cena: "/>
                                 <TextBlock Grid.Column="2" Text="{Binding price}" FontWeight="Bold"/>
                             </StackPanel>
                         </DataTemplate>
