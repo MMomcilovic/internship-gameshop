@@ -25,6 +25,8 @@ namespace GameShop
         public delegate void DataChangedEventHandler(object sender, EventArgs e);
         public event DataChangedEventHandler DataChangedEvent;
         public Product pr;
+        public string upc { get; set; } = "";
+        public string price { get; set; } = "";
         public AddProductForm(Data d)
         {
             data = d;
@@ -36,8 +38,8 @@ namespace GameShop
         {
             Product pr = new Product();
             pr.name = Name_Text.Text;
-            pr.price = Double.Parse(Price_Text.Text);
-            pr.UPC = Int32.Parse(UPC_Text.Text);
+            pr.price = Double.Parse(price);
+            pr.UPC = Int32.Parse(upc);
             data.products.Add(pr);
             this.Close();
             DataChangedEventHandler handler = DataChangedEvent;
@@ -45,6 +47,26 @@ namespace GameShop
             {
                 handler(this, new EventArgs());
             }
+        }
+
+        private void UPC_Text_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (!Double.TryParse(upc, out double x) || !Double.TryParse(price, out double y))
+            {
+                Submit_btn.IsEnabled = false;
+                return;
+            }
+            Submit_btn.IsEnabled = true;
+        }
+
+        private void Price_Text_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (!Double.TryParse(price, out double x) || !Double.TryParse(upc, out double y))
+            {
+                Submit_btn.IsEnabled = false;
+                return;
+            }
+            Submit_btn.IsEnabled = true;
         }
     }
 }
