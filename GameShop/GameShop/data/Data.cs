@@ -11,11 +11,18 @@ namespace GameShop.data
     public class Data : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
-        public List<Product> products { get; set; }
+        public List<Product> products { get; set; } = new List<Product>();
 
-        public Data()
+        internal Product ProductWithUPC(int UPC)
         {
-            products = new List<Product>(); 
+            foreach(Product p in products)
+            {
+                if (p.UPC == UPC)
+                {
+                    return p;
+                }
+            }
+            return null;
         }
     }
 }

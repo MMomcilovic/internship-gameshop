@@ -20,23 +20,23 @@
             <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
         <Label Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center">UPC</Label>
-        <TextBox Grid.Row="0" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" Height="30px" Width="100px" x:Name="UPC_Text" LostFocus="UPC_Text_LostFocus">
-            <Binding Path="upc" Mode="TwoWay">
+        <TextBox Grid.Row="0" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" Height="30px" Width="100px" x:Name="UPC_Text" LostFocus="UPC_Text_LostFocus" MaxLength="10">
+            <Binding Path="UPCText" Mode="TwoWay">
                 <Binding.ValidationRules>
                     <val:StringToDoubleValidationRule ValidationStep="RawProposedValue"/>
                 </Binding.ValidationRules>
             </Binding>
         </TextBox>
         <Label Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center">Price</Label>
-        <TextBox Grid.Row="1" Grid.Column="1"  VerticalAlignment="Top" HorizontalAlignment="Left" Height="30px" Width="100px" x:Name="Price_Text" LostFocus="Price_Text_LostFocus">
-            <Binding Path="price" Mode="TwoWay">
+        <TextBox Grid.Row="1" Grid.Column="1"  VerticalAlignment="Top" HorizontalAlignment="Left" Height="30px" Width="100px" x:Name="Price_Text" LostFocus="Price_Text_LostFocus" MaxLength="10">
+            <Binding Path="PriceText" Mode="TwoWay">
                 <Binding.ValidationRules>
                     <val:StringToDoubleValidationRule ValidationStep="RawProposedValue"/>
                 </Binding.ValidationRules>
             </Binding>
         </TextBox>
         <Label Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center">Name</Label>
-        <TextBox Grid.Row="2" Grid.Column="1"  VerticalAlignment="Top" Height="30px"  x:Name="Name_Text"></TextBox>
+        <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" VerticalAlignment="Top" Height="30px"  x:Name="Name_Text" MaxLength="40"></TextBox>
         <Button x:Name="Submit_btn" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Click="Add_Click">
             Add</Button>
     </Grid>

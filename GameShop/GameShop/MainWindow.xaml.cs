@@ -52,7 +52,6 @@ namespace GameShop
         private void TaxesDialog(object sender, MouseButtonEventArgs e)
         {
             var item = ((FrameworkElement)e.OriginalSource).DataContext as Product;
-            Console.WriteLine("eo");
             if (item != null)
             {
                 DisplayTaxes dt = new DisplayTaxes(item);

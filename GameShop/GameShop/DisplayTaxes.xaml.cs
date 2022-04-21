@@ -22,29 +22,46 @@ namespace GameShop
     public partial class DisplayTaxes : Window, INotifyPropertyChanged
     {
         public Product product { get; set; }
-        public double tax { get; set; } = 20;
         public List<string> taxes { get; set; }
         public DisplayTaxes(Product p)
         {
             product = p;
             taxes = new List<string>();
-            taxes.Add(product.TaxDispaly(tax));
+            taxes.Add(product.FullPriceDisplay());
             InitializeComponent();
             TaxList.ItemsSource = taxes;
         }
 
-        public string Text
+        public string TaxText
         {
-            get { return tax.ToString(); }
-            set { tax = Double.Parse(value); }
+            get { return product.tax.ToString(); }
+            set { product.tax = Double.Parse(value); }
+        }
+        public string PriceText
+        {
+            get { return product.price.ToString(); }
+            set { product.price = Double.Parse(value); }
+        }
+        public string SaleText
+        {
+            get { return product.sale.ToString(); }
+            set { product.sale = Double.Parse(value); }
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
         private void AddTax(object sender, RoutedEventArgs e)
         {
-            taxes.Add(product.TaxDispaly(Double.Parse(Text)));
-            TaxList.Items.Refresh();
+            double price = 0, tax = 0, sale = 0;
+            if (Double.TryParse(PriceText, out price) || Double.TryParse(TaxText, out tax) || Double.TryParse(SaleText, out sale))
+            {
+                if (price < 0 || tax < 0 || sale < 0)
+                {
+                    return;
+                }
+                taxes.Add(product.FullPriceDisplay());
+                TaxList.Items.Refresh();
+            }
         }
     }
 }

@@ -25,33 +25,50 @@ namespace GameShop
         public delegate void DataChangedEventHandler(object sender, EventArgs e);
         public event DataChangedEventHandler DataChangedEvent;
         public Product pr;
-        public string upc { get; set; } = "";
-        public string price { get; set; } = "";
         public AddProductForm(Data d)
         {
             data = d;
             pr = new Product();
             InitializeComponent();
         }
-
+        public string UPCText
+        {
+            get { return pr.UPC.ToString(); }
+            set { pr.UPC = Int32.Parse(value); }
+        }
+        public string PriceText
+        {
+            get { return pr.price.ToString(); }
+            set { pr.price = Double.Parse(value); }
+        }
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            Product pr = new Product();
-            pr.name = Name_Text.Text;
-            pr.price = Double.Parse(price);
-            pr.UPC = Int32.Parse(upc);
-            data.products.Add(pr);
-            this.Close();
-            DataChangedEventHandler handler = DataChangedEvent;
-            if (handler!= null)
+            if (pr.price < 0 || pr.UPC < 0 || Name_Text.Text.Length < 3)
             {
-                handler(this, new EventArgs());
+                return;
+            }
+            Product x = new Product();
+            x.price = pr.price;
+            x.name = Name_Text.Text;
+            x.UPC = pr.UPC;
+            if (data.ProductWithUPC(x.UPC) != null)
+            {
+                MessageBox.Show("Product with this UPC exists!");
+            }
+            else
+            {
+                data.products.Add(x);
+                DataChangedEventHandler handler = DataChangedEvent;
+                if (handler != null)
+                {
+                    handler(this, new EventArgs());
+                }
             }
         }
 
         private void UPC_Text_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (!Double.TryParse(upc, out double x) || !Double.TryParse(price, out double y))
+            if (!Double.TryParse(UPC_Text.Text, out double x) || !Double.TryParse(Price_Text.Text, out double y))
             {
                 Submit_btn.IsEnabled = false;
                 return;
@@ -61,7 +78,7 @@ namespace GameShop
 
         private void Price_Text_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (!Double.TryParse(price, out double x) || !Double.TryParse(upc, out double y))
+            if (!Double.TryParse(UPC_Text.Text, out double x) || !Double.TryParse(Price_Text.Text, out double y))
             {
                 Submit_btn.IsEnabled = false;
                 return;

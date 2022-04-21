@@ -18,6 +18,10 @@ namespace GameShop.validation
                 double r;
                 if(double.TryParse(s, out r))
                 {
+                    if (r < 0)
+                    {
+                        return new ValidationResult(false, "Vrednost mora biti veca od 0!");
+                    }
                     return new ValidationResult(true, null);
                 }
                 return new ValidationResult(false, "Molim Vas unesite brojnu vrednost za cenu.");
