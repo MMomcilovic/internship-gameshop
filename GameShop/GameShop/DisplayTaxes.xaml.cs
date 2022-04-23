@@ -42,20 +42,20 @@ namespace GameShop
             get { return product.price.ToString(); }
             set { product.price = Double.Parse(value); }
         }
-        public string SaleText
+        public string DiscountText
         {
-            get { return product.sale.ToString(); }
-            set { product.sale = Double.Parse(value); }
+            get { return product.discount.ToString(); }
+            set { product.discount = Double.Parse(value); }
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
         private void AddTax(object sender, RoutedEventArgs e)
         {
-            double price = 0, tax = 0, sale = 0;
-            if (Double.TryParse(PriceText, out price) || Double.TryParse(TaxText, out tax) || Double.TryParse(SaleText, out sale))
+            double price = 0, tax = 0, discount = 0;
+            if (Double.TryParse(PriceText, out price) || Double.TryParse(TaxText, out tax) || Double.TryParse(DiscountText, out discount))
             {
-                if (price < 0 || tax < 0 || sale < 0)
+                if (price < 0 || tax < 0 || discount < 0)
                 {
                     return;
                 }

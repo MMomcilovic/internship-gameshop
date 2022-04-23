@@ -14,24 +14,24 @@ namespace GameShop.model
         public int UPC { get; set; }
         public double price { get; set; }
         public double tax { get; set; } = 20;
-        public double sale { get; set; } = 0;
+        public double discount { get; set; } = 0;
 
         public double GetTaxAmount()
         {
             return price * tax / 100;
         }
-        public double GetSaleAmount()
+        public double GetDiscountAmount()
         {
-            return price * sale / 100;
+            return price * discount / 100;
 
         }
         private object GetFullPrice()
         {
-            return price + GetTaxAmount() - GetSaleAmount();
+            return price + GetTaxAmount() - GetDiscountAmount();
         }
         internal string FullPriceDisplay()
         {
-            return $"Iznos poreza = {GetTaxAmount():N2} din ({tax:N2}%); Iznos popusta = {GetSaleAmount():N2} din ({sale}%)\nOsnova cena {price:N2} din, Cena nakon popusta i poreza {GetFullPrice():N2} din";
+            return $"Iznos poreza = {GetTaxAmount():N2} din ({tax:N2}%); Iznos popusta = {GetDiscountAmount():N2} din ({discount}%)\nOsnova cena {price:N2} din, Cena nakon popusta i poreza {GetFullPrice():N2} din";
         }
 
     }
