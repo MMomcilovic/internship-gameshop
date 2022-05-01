@@ -26,7 +26,10 @@ namespace GameShop
         public MainWindow()
         {
             data = new Data();
-            data.products.Add(new Product() { name= "LEGO blokovi = “Friends Forest House”", price=20.25, UPC=41679});
+            data.products.Add(new Product() { name= "LEGO blokovi = “Friends Forest House”", price=20.25, UPC=41679, discount=7});
+            data.products.Add(new Product() { name= "Ricky Zoom SUPER LOOP", price=1299.00, UPC=200633, discount=32});
+            data.products.Add(new Product() { name= "LEGO Classic Basic BRICK SET", price=2899.00, UPC=11002, discount=0});
+            data.products.Add(new Product() { name= "LEGO Classic Around The WORLD", price=6999.00, UPC=11015, discount=19});
             InitializeComponent();
             this.DataContext = this;
         }
@@ -54,7 +57,7 @@ namespace GameShop
             var item = ((FrameworkElement)e.OriginalSource).DataContext as Product;
             if (item != null)
             {
-                DisplayTaxes dt = new DisplayTaxes(item);
+                DisplayTaxes dt = new DisplayTaxes(item, data);
                 dt.Show();
             }
         }

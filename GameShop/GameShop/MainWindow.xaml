@@ -37,12 +37,14 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Grid.Column="0" Text="UPC: " FontWeight="Bold"/>
-                                <TextBlock Grid.Column="0" Text="{Binding UPC}" FontWeight="Bold"/>
-                                <TextBlock Text="         Naziv prozivoda: "/>
-                                <TextBlock Grid.Column="1" Text="{Binding name}" FontWeight="Bold"/>
-                                <TextBlock Text="         Cena: "/>
-                                <TextBlock Grid.Column="2" Text="{Binding price}" FontWeight="Bold"/>
+                                <TextBlock Text="UPC: " FontWeight="Bold"/>
+                                <TextBlock Grid.Column="0" Text="{Binding UPC}" FontWeight="Bold" Width="50"/>
+                                <TextBlock Text="         Product Name: "/>
+                                <TextBlock Grid.Column="1" Text="{Binding name}" FontWeight="Bold" MinWidth="250"/>
+                                <TextBlock Text="         Price: "/>
+                                <TextBlock Grid.Column="2" Text="{Binding price}" FontWeight="Bold" Width="50"/>
+                                <TextBlock Text="         Selective discount: " />
+                                <TextBlock Grid.Column="2" Text="{Binding discount, StringFormat={}{0}%}" FontWeight="Bold"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>
