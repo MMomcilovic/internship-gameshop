@@ -59,6 +59,8 @@ namespace GameShop
                 UPC = pr.UPC,
                 discount = pr.discount
             };
+            if (pr.discount > 100) x.discount = 100;
+
             if (data.ProductWithUPC(x.UPC) != null)
             {
                 MessageBox.Show("Product with this UPC exists!");

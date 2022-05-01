@@ -6,7 +6,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:GameShop" xmlns:model="clr-namespace:GameShop.model" DataContext="{Binding RelativeSource={RelativeSource Self}}"
         mc:Ignorable="d"
-        Title="GameShop" Height="450" Width="800"
+        Title="GameShop" Height="500" Width="1000"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
@@ -27,9 +27,9 @@
                 <ColumnDefinition Width="4*"></ColumnDefinition>
                 <ColumnDefinition Width="2*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Grid.Row="0" Click="AddItme_Click" >Add Product</Button>
-            <Button Grid.Column="4" Grid.Row="0" Click="ResetItems_Click" >Reset</Button>
-            <Label Grid.Column="2" Grid.Row="0" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center">Double click on item to view tax!</Label>
+            <Button Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Click="AddItme_Click" materialDesign:ShadowAssist.ShadowDepth="Depth2" Margin="5" Width="120" HorizontalAlignment="Left">Add Product</Button>
+            <Button Grid.Column="4" Grid.Row="0" Click="ResetItems_Click" materialDesign:ShadowAssist.ShadowDepth="Depth2" Margin="5">Reset</Button>
+            <Label Grid.Column="2" Grid.Row="0" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center">Double click on item to view info!</Label>
         </Grid>
         <DockPanel DockPanel.Dock="Bottom" Background="Azure">
             <Grid x:Name="grid">
@@ -38,13 +38,13 @@
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="UPC: " FontWeight="Bold"/>
-                                <TextBlock Grid.Column="0" Text="{Binding UPC}" FontWeight="Bold" Width="50"/>
+                                <TextBlock Grid.Column="0" Text="{Binding UPC}" FontWeight="Bold" Width="60"/>
                                 <TextBlock Text="         Product Name: "/>
-                                <TextBlock Grid.Column="1" Text="{Binding name}" FontWeight="Bold" MinWidth="250"/>
+                                <TextBlock Grid.Column="1" Text="{Binding name}" FontWeight="Bold" MinWidth="350"/>
                                 <TextBlock Text="         Price: "/>
-                                <TextBlock Grid.Column="2" Text="{Binding price}" FontWeight="Bold" Width="50"/>
+                                <TextBlock Grid.Column="2" Text="{Binding price, StringFormat={}{0:N2} din}" FontWeight="Bold" Width="130"/>
                                 <TextBlock Text="         Selective discount: " />
-                                <TextBlock Grid.Column="2" Text="{Binding discount, StringFormat={}{0}%}" FontWeight="Bold"/>
+                                <TextBlock Grid.Column="2" Text="{Binding discount, StringFormat={}{0} %}" FontWeight="Bold"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>

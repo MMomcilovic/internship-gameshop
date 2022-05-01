@@ -10,7 +10,7 @@
     <Compile Update="AddProductForm.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="DisplayTaxes.xaml.cs">
+    <Compile Update="DisplayInfo.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -18,7 +18,7 @@
     <Page Update="AddProductForm.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="DisplayTaxes.xaml">
+    <Page Update="DisplayInfo.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MainWindow.xaml">
