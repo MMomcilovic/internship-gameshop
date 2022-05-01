@@ -27,7 +27,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <TextBox Grid.Column="0" Margin="6px" Width="100" VerticalAlignment="Center" x:Name="taxText" MaxLength="3"   
+            <TextBox Grid.Column="0" Margin="6px" Width="100" VerticalAlignment="Center" x:Name="taxText" MaxLength="5"   
                      materialDesign:HintAssist.Hint="Tax Percent"
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                      materialDesign:TextFieldAssist.SuffixText="%">
@@ -40,7 +40,7 @@
                     </Binding>
                 </TextBox.Text>
             </TextBox>
-            <TextBox Grid.Column="1" Margin="6px" Width="100" VerticalAlignment="Center" x:Name="discountText" MaxLength="3"
+            <TextBox Grid.Column="1" Margin="6px" Width="100" VerticalAlignment="Center" x:Name="discountText" MaxLength="5"
                      materialDesign:HintAssist.Hint="Discount Percent"
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                      materialDesign:TextFieldAssist.SuffixText="%">
@@ -53,7 +53,7 @@
                     </Binding>
                 </TextBox.Text>
             </TextBox>
-            <TextBox Grid.Column="2" Margin="6px" Width="100" VerticalAlignment="Center" x:Name="priceText" MaxLength="3"
+            <TextBox Grid.Column="2" Margin="6px" Width="100" VerticalAlignment="Center" x:Name="priceText" MaxLength="10"
                      materialDesign:HintAssist.Hint="Price"
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                      materialDesign:TextFieldAssist.SuffixText="%">
@@ -61,7 +61,7 @@
                     <Binding Path="PriceText" Mode="TwoWay">
                         <Binding.ValidationRules>
                             <val:StringToDoubleValidationRule ValidationStep="RawProposedValue"/>
-                            <val:MinMaxValidationRule ValidationStep="ConvertedProposedValue" Min="0" Max="99999999999"/>
+                            <val:MinMaxValidationRule ValidationStep="ConvertedProposedValue" Min="0" Max="9999999999"/>
                         </Binding.ValidationRules>
                     </Binding>
                 </TextBox.Text>

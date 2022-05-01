@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using GameShop.data;
 
 namespace GameShop
 {
@@ -23,19 +24,22 @@ namespace GameShop
     {
         public Product product { get; set; }
         public List<string> taxes { get; set; }
-        public DisplayTaxes(Product p)
+
+        public Data data { get; set; }
+        public DisplayTaxes(Product p, Data d)
         {
             product = p;
+            data = d;
             taxes = new List<string>();
-            taxes.Add(product.FullPriceDisplay());
+            taxes.Add(product.FullPriceDisplay(d.GlobalTax, d.GlobalDiscount));
             InitializeComponent();
             TaxList.ItemsSource = taxes;
         }
 
         public string TaxText
         {
-            get { return product.tax.ToString(); }
-            set { product.tax = Double.Parse(value); }
+            get { return data.GlobalTax.ToString(); }
+            set { data.GlobalTax = Double.Parse(value); }
         }
         public string PriceText
         {
@@ -44,8 +48,8 @@ namespace GameShop
         }
         public string DiscountText
         {
-            get { return product.discount.ToString(); }
-            set { product.discount = Double.Parse(value); }
+            get { return data.GlobalDiscount.ToString(); }
+            set { data.GlobalDiscount = Double.Parse(value); }
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -59,7 +63,7 @@ namespace GameShop
                 {
                     return;
                 }
-                taxes.Add(product.FullPriceDisplay());
+                taxes.Add(product.FullPriceDisplay(data.GlobalTax, data.GlobalDiscount));
                 TaxList.Items.Refresh();
             }
         }
