@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:GameShop"
         xmlns:val="clr-namespace:GameShop.validation"
         mc:Ignorable="d"
-        Title="AddProductForm" Height="200" Width="300" DataContext="{Binding RelativeSource={RelativeSource Self}}">
+        Title="AddProductForm" Height="300" Width="300" DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Grid Margin="10px"> 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"/>
@@ -18,8 +18,9 @@
             <RowDefinition Height="2*"/>
             <RowDefinition Height="2*"/>
             <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
-        <Label Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center">UPC</Label>
+        <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" Padding="10">UPC</TextBlock>
         <TextBox Grid.Row="0" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" Height="30px" Width="100px" x:Name="UPC_Text" LostFocus="UPC_Text_LostFocus" MaxLength="10">
             <Binding Path="UPCText" Mode="TwoWay">
                 <Binding.ValidationRules>
@@ -27,7 +28,7 @@
                 </Binding.ValidationRules>
             </Binding>
         </TextBox>
-        <Label Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center">Price</Label>
+        <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" Padding="10">Price</TextBlock>
         <TextBox Grid.Row="1" Grid.Column="1"  VerticalAlignment="Top" HorizontalAlignment="Left" Height="30px" Width="100px" x:Name="Price_Text" LostFocus="Price_Text_LostFocus" MaxLength="10">
             <Binding Path="PriceText" Mode="TwoWay">
                 <Binding.ValidationRules>
@@ -35,9 +36,17 @@
                 </Binding.ValidationRules>
             </Binding>
         </TextBox>
-        <Label Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center">Name</Label>
-        <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" VerticalAlignment="Top" Height="30px"  x:Name="Name_Text" MaxLength="40"></TextBox>
-        <Button x:Name="Submit_btn" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Click="Add_Click">
+        <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" TextWrapping="Wrap" Padding="5">Selective Discount</TextBlock>
+        <TextBox Grid.Row="2" Grid.Column="1"  VerticalAlignment="Top" HorizontalAlignment="Left" Height="30px" Width="100px" x:Name="SelectieveDiscount_Text" LostFocus="SelectieveDiscount_Text_LostFocus" MaxLength="10">
+            <Binding Path="DiscountText" Mode="TwoWay">
+                <Binding.ValidationRules>
+                    <val:StringToDoubleValidationRule ValidationStep="RawProposedValue"/>
+                </Binding.ValidationRules>
+            </Binding>
+        </TextBox>
+        <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" Padding="10">Name</TextBlock>
+        <TextBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" VerticalAlignment="Top" Height="30px"  x:Name="Name_Text" MaxLength="40"></TextBox>
+        <Button x:Name="Submit_btn" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Click="Add_Click">
             Add</Button>
     </Grid>
 </Window>

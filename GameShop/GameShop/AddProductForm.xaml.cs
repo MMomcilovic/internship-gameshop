@@ -41,16 +41,24 @@ namespace GameShop
             get { return pr.price.ToString(); }
             set { pr.price = Double.Parse(value); }
         }
+        public string DiscountText
+        {
+            get { return pr.discount.ToString(); }
+            set { pr.discount = Double.Parse(value); }
+        }
         private void Add_Click(object sender, RoutedEventArgs e)
         {
             if (pr.price < 0 || pr.UPC < 0 || Name_Text.Text.Length < 3)
             {
                 return;
             }
-            Product x = new Product();
-            x.price = pr.price;
-            x.name = Name_Text.Text;
-            x.UPC = pr.UPC;
+            Product x = new()
+            {
+                price = pr.price,
+                name = Name_Text.Text,
+                UPC = pr.UPC,
+                discount = pr.discount
+            };
             if (data.ProductWithUPC(x.UPC) != null)
             {
                 MessageBox.Show("Product with this UPC exists!");
@@ -68,7 +76,7 @@ namespace GameShop
 
         private void UPC_Text_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (!Double.TryParse(UPC_Text.Text, out double x) || !Double.TryParse(Price_Text.Text, out double y))
+            if (!Double.TryParse(UPC_Text.Text, out double x) || !Double.TryParse(Price_Text.Text, out double y) || !Double.TryParse(SelectieveDiscount_Text.Text, out double z))
             {
                 Submit_btn.IsEnabled = false;
                 return;
@@ -78,7 +86,17 @@ namespace GameShop
 
         private void Price_Text_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (!Double.TryParse(UPC_Text.Text, out double x) || !Double.TryParse(Price_Text.Text, out double y))
+            if (!Double.TryParse(UPC_Text.Text, out double x) || !Double.TryParse(Price_Text.Text, out double y) || !Double.TryParse(SelectieveDiscount_Text.Text, out double z))
+            {
+                Submit_btn.IsEnabled = false;
+                return;
+            }
+            Submit_btn.IsEnabled = true;
+        }
+
+        private void SelectieveDiscount_Text_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (!Double.TryParse(SelectieveDiscount_Text.Text, out double x) || !Double.TryParse(Price_Text.Text, out double y) || !Double.TryParse(UPC_Text.Text, out double z))
             {
                 Submit_btn.IsEnabled = false;
                 return;
