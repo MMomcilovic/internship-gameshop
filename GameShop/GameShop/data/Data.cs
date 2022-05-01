@@ -12,7 +12,8 @@ namespace GameShop.data
     {
         public event PropertyChangedEventHandler? PropertyChanged;
         public List<Product> products { get; set; } = new List<Product>();
-
+        public double GlobalTax { get; set; } = 20;
+        public double GlobalDiscount { get; set; } = 0;
         internal Product ProductWithUPC(int UPC)
         {
             foreach(Product p in products)
