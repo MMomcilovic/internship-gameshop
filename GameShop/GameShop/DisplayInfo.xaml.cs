@@ -24,47 +24,59 @@ namespace GameShop
     {
         public Product product { get; set; }
         public List<string> taxes { get; set; }
-
         public Data data { get; set; }
+        public bool _textChanged = false;
         public DisplayTaxes(Product p, Data d)
         {
             product = p;
             data = d;
             taxes = new List<string>();
-            taxes.Add(product.FullPriceDisplay(d.GlobalTax, d.GlobalDiscount));
+            taxes.Add(product.FullPriceDisplay(d.GlobalTax, d.GlobalDiscount, d.GlobalCalculateBeforeTax));
             InitializeComponent();
             TaxList.ItemsSource = taxes;
         }
 
-        public string TaxText
-        {
-            get { return data.GlobalTax.ToString(); }
-            set { data.GlobalTax = Double.Parse(value); }
-        }
-        public string PriceText
-        {
-            get { return product.price.ToString(); }
-            set { product.price = Double.Parse(value); }
-        }
-        public string DiscountText
-        {
-            get { return data.GlobalDiscount.ToString(); }
-            set { data.GlobalDiscount = Double.Parse(value); }
-        }
-
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        private void AddTax(object sender, RoutedEventArgs e)
+        private void CBT_Toggle(object sender, RoutedEventArgs e)
         {
-            double price = 0, tax = 0, discount = 0;
-            if (Double.TryParse(PriceText, out price) || Double.TryParse(TaxText, out tax) || Double.TryParse(DiscountText, out discount))
+            taxes.Add(product.FullPriceDisplay(data.GlobalTax, data.GlobalDiscount, data.GlobalCalculateBeforeTax));
+            TaxList.Items.Refresh();
+        }
+
+        private void Fetch(object sender, RoutedEventArgs e)
+        {
+            taxes.Add(product.FullPriceDisplay(data.GlobalTax, data.GlobalDiscount, data.GlobalCalculateBeforeTax));
+            TaxList.Items.Refresh();
+        }
+
+        private void discountText_LostFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox tb = sender as TextBox;
+            double p;
+            if (!Double.TryParse(tb.Text, out p))
             {
-                if (price < 0 || tax < 0 || discount < 0)
+                tb.Text = data.GlobalDiscount.ToString();
+            } else
+            {
+                if (p < 0)
                 {
-                    return;
+                    data.GlobalDiscount = 0;
                 }
-                taxes.Add(product.FullPriceDisplay(data.GlobalTax, data.GlobalDiscount));
-                TaxList.Items.Refresh();
+                else if (p > 100)
+                {
+                    data.GlobalDiscount = 100;
+                }
+            }
+            
+        }
+
+        private void priceText_LostFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox tb = sender as TextBox;
+            if (!Double.TryParse(tb.Text, out double p))
+            {
+                tb.Text = data.GlobalTax.ToString();
             }
         }
     }

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:GameShop" xmlns:val="clr-namespace:GameShop.validation"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="DisplayPrices" Height="400" Width="550" DataContext="{Binding RelativeSource={RelativeSource Self}}">
+        Title="DisplayPrices" Height="500" Width="550" DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="5*"></RowDefinition>
@@ -17,7 +17,7 @@
             <ColumnDefinition Width="8*"></ColumnDefinition>
             <ColumnDefinition Width="1*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">
+        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" ClipToBounds="true">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
@@ -25,50 +25,47 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <TextBox Grid.Column="0" Margin="6px" Width="100" VerticalAlignment="Center" x:Name="taxText" MaxLength="5"   
-                     materialDesign:HintAssist.Hint="Tax Percent"
+            <TextBlock HorizontalAlignment="Center" Grid.ColumnSpan="2">Global Parameters</TextBlock>
+                <TextBox Grid.Column="0" Margin="6px" Width="100" VerticalAlignment="Center" x:Name="priceText" MaxLength="10" LostFocus="priceText_LostFocus"
+                     materialDesign:HintAssist.Hint="Tax percent"
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                      materialDesign:TextFieldAssist.SuffixText="%">
                 <TextBox.Text>
-                    <Binding Path="TaxText" Mode="TwoWay">
+                    <Binding Path="data.GlobalTax" Mode="TwoWay">
                         <Binding.ValidationRules>
                             <val:StringToDoubleValidationRule ValidationStep="RawProposedValue"/>
-                            <val:MinMaxValidationRule ValidationStep="ConvertedProposedValue" Min="0" Max="100"/>
                         </Binding.ValidationRules>
                     </Binding>
                 </TextBox.Text>
             </TextBox>
-            <TextBox Grid.Column="1" Margin="6px" Width="100" VerticalAlignment="Center" x:Name="discountText" MaxLength="5"
+            <TextBox Grid.Column="1" Margin="6px" Width="100" VerticalAlignment="Center" x:Name="discountText" MaxLength="5" HorizontalAlignment="Left" LostFocus="discountText_LostFocus"
                      materialDesign:HintAssist.Hint="Discount Percent"
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                      materialDesign:TextFieldAssist.SuffixText="%">
                 <TextBox.Text>
-                    <Binding Path="DiscountText" Mode="TwoWay">
+                    <Binding Path="data.GlobalDiscount" Mode="TwoWay">
                         <Binding.ValidationRules>
                             <val:StringToDoubleValidationRule ValidationStep="RawProposedValue"/>
-                            <val:MinMaxValidationRule ValidationStep="ConvertedProposedValue" Min="0" Max="100"/>
                         </Binding.ValidationRules>
                     </Binding>
                 </TextBox.Text>
             </TextBox>
-            <TextBox Grid.Column="2" Margin="6px" Width="100" VerticalAlignment="Center" x:Name="priceText" MaxLength="10"
-                     materialDesign:HintAssist.Hint="Price"
-                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                     materialDesign:TextFieldAssist.SuffixText="%">
-                <TextBox.Text>
-                    <Binding Path="PriceText" Mode="TwoWay">
-                        <Binding.ValidationRules>
-                            <val:StringToDoubleValidationRule ValidationStep="RawProposedValue"/>
-                            <val:MinMaxValidationRule ValidationStep="ConvertedProposedValue" Min="0" Max="9999999999"/>
-                        </Binding.ValidationRules>
-                    </Binding>
-                </TextBox.Text>
-            </TextBox>
-
-            <Button Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top" Click="AddTax" materialDesign:ShadowAssist.ShadowDepth="Depth2">Calculate</Button>
             <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" VerticalAlignment="Bottom" HorizontalAlignment="Center" Text="{Binding product.name}" FontWeight="Bold" FontStyle="Italic" Foreground="DarkBlue" FontSize="15"></TextBlock>
+            <TextBlock Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="60 15 0 0">Calculate before tax</TextBlock>
+            <ToggleButton x:Name="GlobalCBT" Grid.Column="1" HorizontalAlignment="Right" Margin="0 15 10 0" Click="CBT_Toggle" IsChecked="{Binding data.GlobalCalculateBeforeTax}"
+                  Style="{StaticResource MaterialDesignSwitchToggleButton}"
+                  ToolTip="MaterialDesignSwitchToggleButton with Custom Track Background">
+                <materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
+                    <SolidColorBrush
+                      Color="Green" />
+                </materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
+                <materialDesign:ToggleButtonAssist.SwitchTrackOffBackground>
+                    <SolidColorBrush
+                      Color="Red" />
+                </materialDesign:ToggleButtonAssist.SwitchTrackOffBackground>
+            </ToggleButton>
+            <Button Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="0 -20 0 0" Click="Fetch">Fetch</Button>
         </Grid>
         <ListView Grid.Row="1" Grid.ColumnSpan="3" Margin="10px" Name="TaxList">
             <ListView.ItemTemplate>
