@@ -13,34 +13,87 @@ namespace GameShop.model
         public string name { get; set; }
         public int UPC { get; set; }
         public double price { get; set; }
-        public double tax { get; set; }
         public double discount { get; set; } = 0;
-
+        public bool CalculateBeforeTax { get; set; } = false;
+        public double CalculatedPrice { get; set; }
+        public double FullDiscont { get; set; } = 0;
         public double GetTaxAmount(double GlobalT)
         {
-            double localT = price * tax / 100;
-            double globalT = price * GlobalT / 100;
-            return localT + globalT;
+            double globalT = CalculatedPrice * GlobalT / 100;
+            return globalT;
         }
-        public double GetDiscountAmount(double GlobalDiscount)
+        public double GetSelectiveDiscountAmount()
         {
-            double disc = GlobalDiscount + discount;
-            if (disc > 100) disc = 100;
-            return price * disc / 100;
-
+            return CalculatedPrice * discount / 100;
         }
-        private object GetFullPrice(double globalD, double GlobalT)
+        public double GetGlobalDiscountAmount(double GlobalD)
         {
-            return price + GetTaxAmount(GlobalT) - GetDiscountAmount(globalD);
+            return CalculatedPrice * GlobalD / 100;
         }
-        internal string FullPriceDisplay(double GlobalTax, double GlobalDisocunt)
+        private double GetFullPrice(double GlobalD, double GlobalT, bool GlobalCBT)
         {
-            string s = $"Iznos poreza = {(price * GlobalTax / 100):N2} din ({GlobalTax:N2}%); Ukupan popust = {GetDiscountAmount(GlobalDisocunt):N2} din ({GlobalDisocunt+discount}%)\n";
-            if (discount > 0)
+            CalculatedPrice = price;
+            FullDiscont = 0;
+            double tax;
+            double disc= 0;
+            double fullPrice;
+            if (CalculateBeforeTax || GlobalCBT)
             {
-                s += $"Proizvod sadrzi selektivni popust ({discount}%)\n";
+                if (CalculateBeforeTax)
+                {
+                    disc += GetSelectiveDiscountAmount();
+                    CalculatedPrice -= disc;
+                    FullDiscont += disc;
+                }
+                if (GlobalCBT)
+                {
+                    disc = GetGlobalDiscountAmount(GlobalD);
+                    CalculatedPrice -= disc;
+                    FullDiscont += disc;
+                }
+                tax = GetTaxAmount(GlobalT);
+                if (!CalculateBeforeTax)
+                {
+                    FullDiscont += GetSelectiveDiscountAmount();
+                }
+                if (!GlobalCBT)
+                {
+                    FullDiscont += GetGlobalDiscountAmount(GlobalD);
+                }
+                fullPrice = price - FullDiscont + tax;
+            } else
+            {
+                FullDiscont = GetSelectiveDiscountAmount() + GetGlobalDiscountAmount(GlobalD);
+                fullPrice = price - FullDiscont + GetTaxAmount(GlobalT);
             }
-            s += $"Osnovna cena {price:N2} din, Cena nakon popusta i poreza {GetFullPrice(GlobalDisocunt, GlobalTax):N2} din";
+            if (fullPrice < 0)
+            {
+                return 0;
+            }
+            return fullPrice;
+        }
+        internal string FullPriceDisplay(double GlobalTax, double GlobalDisocunt, bool GlobalCalculateBeforeTax)
+        {
+            string s = $"Iznos poreza = {GlobalTax:N2}%;\n";
+            if ((discount + GlobalDisocunt) > 0)
+            {
+                if (discount > 0)
+                {
+                    s += $"Selektvni popust";
+                    s += CalculateBeforeTax ? "(pre poreza)" : "(posle poreza)";
+                    s += $" = { discount}%; ";
+                }
+                if (GlobalDisocunt > 0)
+                {
+                    s += $"Globalni popust";
+                    s += GlobalCalculateBeforeTax ? "(pre poreza)" : "(posle poreza)";
+                    s += $" = { GlobalDisocunt}%";
+                }
+            } else
+            {
+                s += "Nema popusta.";
+            }
+            s += $"\nOsnovna cena {price:N2} din, Cena nakon popusta i poreza {GetFullPrice(GlobalDisocunt, GlobalTax, GlobalCalculateBeforeTax):N2} din\nOdbijeno {FullDiscont:N2} din";
             return s;
         }
 
