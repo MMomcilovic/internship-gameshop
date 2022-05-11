@@ -75,11 +75,6 @@ namespace GameShop
             }
         }
 
-        private void GlobalCBT_Click(object sender, RoutedEventArgs e)
-        {
-            data.GlobalCalculateBeforeTax = GlobalCBT.IsChecked.Value;
-        }
-
         private void Price_KeyDown(object sender, KeyEventArgs e)
         {
             TextBox tb = sender as TextBox;
@@ -116,6 +111,28 @@ namespace GameShop
                     }
                 }
                 tb.MoveFocus(new TraversalRequest(FocusNavigationDirection.Down));
+            }
+        }
+
+        private void DiscountTB_LostFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox tb = sender as TextBox;
+            double p;
+            Product pr = (Product)tb.DataContext;
+            if (!Double.TryParse(tb.Text, out p))
+            {
+                tb.Text = pr.discount.ToString();
+            }
+            else
+            {
+                if (p > 100)
+                {
+                    pr.discount = 100;
+                }
+                else if (p < 0)
+                {
+                    pr.discount = 0;
+                }
             }
         }
     }
