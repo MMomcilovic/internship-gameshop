@@ -76,7 +76,7 @@ namespace GameShop
             }
         }
 
-        private void UPC_Text_LostFocus(object sender, RoutedEventArgs e)
+        private void Tb_LostFocus(object sender, RoutedEventArgs e)
         {
             if (!Double.TryParse(UPC_Text.Text, out double x) || !Double.TryParse(Price_Text.Text, out double y) || !Double.TryParse(SelectieveDiscount_Text.Text, out double z))
             {
@@ -86,24 +86,5 @@ namespace GameShop
             Submit_btn.IsEnabled = true;
         }
 
-        private void Price_Text_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (!Double.TryParse(UPC_Text.Text, out double x) || !Double.TryParse(Price_Text.Text, out double y) || !Double.TryParse(SelectieveDiscount_Text.Text, out double z))
-            {
-                Submit_btn.IsEnabled = false;
-                return;
-            }
-            Submit_btn.IsEnabled = true;
-        }
-
-        private void SelectieveDiscount_Text_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (!Double.TryParse(SelectieveDiscount_Text.Text, out double x) || !Double.TryParse(Price_Text.Text, out double y) || !Double.TryParse(UPC_Text.Text, out double z))
-            {
-                Submit_btn.IsEnabled = false;
-                return;
-            }
-            Submit_btn.IsEnabled = true;
-        }
     }
 }

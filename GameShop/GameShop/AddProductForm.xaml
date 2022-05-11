@@ -21,7 +21,7 @@
             <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" Padding="10">UPC</TextBlock>
-        <TextBox Grid.Row="0" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" Height="30px" Width="100px" x:Name="UPC_Text" LostFocus="UPC_Text_LostFocus" MaxLength="10">
+        <TextBox Grid.Row="0" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" Height="30px" Width="100px" x:Name="UPC_Text" LostFocus="Tb_LostFocus" MaxLength="10">
             <Binding Path="UPCText" Mode="TwoWay">
                 <Binding.ValidationRules>
                     <val:StringToDoubleValidationRule ValidationStep="RawProposedValue"/>
@@ -29,7 +29,7 @@
             </Binding>
         </TextBox>
         <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" Padding="10">Price</TextBlock>
-        <TextBox Grid.Row="1" Grid.Column="1"  VerticalAlignment="Top" HorizontalAlignment="Left" Height="30px" Width="100px" x:Name="Price_Text" LostFocus="Price_Text_LostFocus" MaxLength="10">
+        <TextBox Grid.Row="1" Grid.Column="1"  VerticalAlignment="Top" HorizontalAlignment="Left" Height="30px" Width="100px" x:Name="Price_Text" LostFocus="Tb_LostFocus" MaxLength="10">
             <Binding Path="PriceText" Mode="TwoWay">
                 <Binding.ValidationRules>
                     <val:StringToDoubleValidationRule ValidationStep="RawProposedValue"/>
@@ -37,7 +37,7 @@
             </Binding>
         </TextBox>
         <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" TextWrapping="Wrap" Padding="5">Selective Discount</TextBlock>
-        <TextBox Grid.Row="2" Grid.Column="1"  VerticalAlignment="Top" HorizontalAlignment="Left" Height="30px" Width="100px" x:Name="SelectieveDiscount_Text" LostFocus="SelectieveDiscount_Text_LostFocus" MaxLength="10">
+        <TextBox Grid.Row="2" Grid.Column="1"  VerticalAlignment="Top" HorizontalAlignment="Left" Height="30px" Width="100px" x:Name="SelectieveDiscount_Text" LostFocus="Tb_LostFocus" MaxLength="10">
             <Binding Path="DiscountText" Mode="TwoWay">
                 <Binding.ValidationRules>
                     <val:StringToDoubleValidationRule ValidationStep="RawProposedValue"/>
