@@ -33,6 +33,19 @@ namespace GameShop
             InitializeComponent();
             this.DataContext = this;
         }
+        public string TaxText
+        {
+            get { return data.GlobalTax.ToString(); }
+            set { data.GlobalTax = Double.Parse(value); }
+        }
+        public string DiscountText
+        {
+            get { return data.GlobalDiscount.ToString(); }
+            set
+            {
+                data.GlobalDiscount = Double.Parse(value);
+            }
+        }
 
         private void AddItme_Click(object sender, RoutedEventArgs e)
         {
@@ -59,6 +72,50 @@ namespace GameShop
             {
                 DisplayTaxes dt = new DisplayTaxes(item, data);
                 dt.Show();
+            }
+        }
+
+        private void GlobalCBT_Click(object sender, RoutedEventArgs e)
+        {
+            data.GlobalCalculateBeforeTax = GlobalCBT.IsChecked.Value;
+        }
+
+        private void Price_KeyDown(object sender, KeyEventArgs e)
+        {
+            TextBox tb = sender as TextBox;
+            if (e.Key == Key.Enter)
+            {
+                if (!Double.TryParse(tb.Text, out double p))
+                {
+                    Product pr = (Product)tb.DataContext;
+                    tb.Text = pr.price.ToString();
+                }
+                tb.MoveFocus(new TraversalRequest(FocusNavigationDirection.Down));
+            }
+        }
+
+        private void Discount_KeyDown(object sender, KeyEventArgs e)
+        {
+            TextBox tb = sender as TextBox;
+            double p;
+            if (e.Key == Key.Enter)
+            {
+                Product pr = (Product)tb.DataContext;
+                if (!Double.TryParse(tb.Text, out p))
+                {
+                    tb.Text = pr.discount.ToString();
+                } else
+                {
+                    if (p > 100)
+                    {
+                        pr.discount = 100;
+                    }
+                    else if (p < 0)
+                    {
+                        pr.discount = 0;
+                    }
+                }
+                tb.MoveFocus(new TraversalRequest(FocusNavigationDirection.Down));
             }
         }
     }
